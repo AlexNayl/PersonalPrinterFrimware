@@ -464,8 +464,8 @@ void GcodeSuite::G33() {
   SERIAL_ECHOLNPGM("G33 Auto Calibrate");
 
   // Report settings
-  FSTR_P const checkingac = F("Checking... AC");
-  SERIAL_ECHOF(checkingac);
+  PGM_P const checkingac = PSTR("Checking... AC");
+  SERIAL_ECHOPGM_P(checkingac);
   SERIAL_ECHOPGM(" at radius:", dcr);
   if (verbose_level == 0) SERIAL_ECHOPGM(" (DRY-RUN)");
   SERIAL_EOL();

@@ -27,10 +27,6 @@
 #include "../libs/buzzer.h"
 #include "buttons.h"
 
-#if ENABLED(EEPROM_SETTINGS)
-  #include "../module/settings.h"
-#endif
-
 #if ENABLED(TOUCH_SCREEN_CALIBRATION)
   #include "tft_io/touch_calibration.h"
 #endif
@@ -676,7 +672,12 @@ public:
       static void load_settings();
       static void store_settings();
     #endif
-    static void eeprom_alert(const EEPROM_Error) TERN_(EEPROM_AUTO_INIT, {});
+    #if DISABLED(EEPROM_AUTO_INIT)
+      static void eeprom_alert(const uint8_t msgid);
+      static void eeprom_alert_crc()     { eeprom_alert(0); }
+      static void eeprom_alert_index()   { eeprom_alert(1); }
+      static void eeprom_alert_version() { eeprom_alert(2); }
+    #endif
   #endif
 
   //
